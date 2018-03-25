@@ -11,9 +11,11 @@ const output = solc.compile(source, 1).contracts;
 
 fs.ensureDirSync(buildPath); // Check that the Directory exists, if not then build it for us.
 
+// Loop through compiled output grabbing keys.
+// 'contract' is set to keys ':CampaignFactory' & ':Campaign'.
 for (let contract in output) {
-  fs.outputJsonSync(
+  fs.outputJsonSync( // Write out a JSON file to some specified folder.
     path.resolve(buildPath, contract.replace(':','') + '.json'),
-    output[contract]
+    output[contract] // The contents that we write to the JSON file.
   );
 }
