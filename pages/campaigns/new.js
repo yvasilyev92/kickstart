@@ -5,6 +5,7 @@ import factory from '../../ethereum/factory.js';
 import web3 from '../../ethereum/web3.js';
 import {Router} from '../../routes.js';
 
+
 class CampaignNew extends Component {
   state = {
     minimumContribution: '',
@@ -21,7 +22,7 @@ class CampaignNew extends Component {
         .send({
           from: accounts[0]
         });
-      // Redirect user to Index route.  
+      // Redirect user to Index route.
       Router.pushRoute('/');
     } catch (err) {
         this.setState({errorMessage : err.message.split("\n")[0] });
