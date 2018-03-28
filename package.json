@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "next build",
     "test": "mocha",
     "dev": "node server.js"
   },
