@@ -3,22 +3,35 @@ import {Button,Table} from 'semantic-ui-react';
 import {Link} from '../../../routes.js';
 import Layout from '../../../components/Layout.js';
 import Campaign from '../../../ethereum/campaign.js';
+import RequestRow from '../../../components/RequestRow.js';
 
 
 class RequestIndex extends Component {
-static async getInitialProps(props) {
-  const {address} = props.query;
-  const campaign = Campaign(address);
-  const requestCount = await campaign.methods.getRequestsCount().call();
+  static async getInitialProps(props) {
+    const {address} = props.query;
+    const campaign = Campaign(address);
+    const requestCount = await campaign.methods.getRequestsCount().call();
 
-  const requests = await Promise.all(
-    Array(parseInt(requestCount)).fill().map((element,index) => {
-      return campaign.methods.requests(index).call();
-    })
-  );
+    const requests = await Promise.all(
+      Array(parseInt(requestCount)).fill().map((element,index) => {
+        return campaign.methods.requests(index).call();
+      })
+    );
 
-  return {address, requests, requestCount};
-}
+    return {address, requests, requestCount};
+  }
+
+  renderRows() {
+    return this.props.requests.map((request,index) => {
+      return (
+          <RequestRow
+            key={index}
+            request={request}
+            address={this.props.address}
+          />
+      );
+    });
+  }
 
   render() {
     const { Header, Row, HeaderCell, Body } = Table;
@@ -41,6 +54,9 @@ static async getInitialProps(props) {
               <HeaderCell>Finalize</HeaderCell>
             </Row>
           </Header>
+          <Body>
+            {this.renderRows()}
+          </Body>
         </Table>
       </Layout>
     );
