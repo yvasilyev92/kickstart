@@ -10,7 +10,9 @@ class CampaignNew extends Component {
   state = {
     minimumContribution: '',
     errorMessage: '',
-    loading: false
+    loading: false,
+    title: '',
+    description: ''
   };
 
   onSubmit = async (event) => {
@@ -33,9 +35,11 @@ class CampaignNew extends Component {
   render() {
     return (
       <Layout>
+
         <h3>Create a Campaign</h3>
 
         <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
+
           <Form.Field>
             <label>Minimum Contribution</label>
             <Input
@@ -45,6 +49,23 @@ class CampaignNew extends Component {
               onChange={event => this.setState({ minimumContribution : event.target.value })}
             />
           </Form.Field>
+
+          <Form.Field>
+            <label>Campaign Title</label>
+            <Input
+              value={this.state.title}
+              onChange={event => this.setState({ title : event.target.value })}
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Campaign Description</label>
+            <Input
+              value={this.state.description}
+              onChange={event => this.setState({ description : event.target.value })}
+            />
+          </Form.Field>
+
           <Message error header="Oops!" content={this.state.errorMessage}/>
           <Button loading={this.state.loading} primary>Create!</Button>
         </Form>
