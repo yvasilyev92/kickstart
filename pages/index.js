@@ -29,7 +29,7 @@ class CampaignIndex extends Component {
     return (
       <Layout>
         <div>
-          <h3>SmartKickStarter is managed by Yevgeniy Vasilyev & deployed on the Rinkeby Network via Contract: 0xaA843b9fef2Db21c27b5EB810844d32267A3510E</h3>
+          <h3>SmartKickStarter is managed by Yevgeniy Vasilyev & deployed on the Rinkeby Network via Contract: 0xdf46CB2afE1F939138aDd2b53Bd36209826123Ad</h3>
           <h3>Open Campaigns</h3>
 
           <Link route="/campaigns/new">
