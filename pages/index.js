@@ -31,7 +31,6 @@ class CampaignIndex extends Component {
       };
     });
     Promise.all(results).then((completed) => {
-      console.log("completed is : ",completed);
       this.setState({arr:completed});
     }).catch((e) => {
       console.log(e);
@@ -42,9 +41,10 @@ class CampaignIndex extends Component {
     return (
       <Layout>
         <div>
-        
-          <h3>SmartKickStarter is managed by Yevgeniy Vasilyev & deployed on the Rinkeby Network via Contract: 0xdf46CB2afE1F939138aDd2b53Bd36209826123Ad</h3>
-          <h3>Open Campaigns</h3>
+
+          <div>SmartKickStarter is managed by Yevgeniy Vasilyev & deployed on the Rinkeby Network via Contract: <b>0xdf46CB2afE1F939138aDd2b53Bd36209826123Ad</b></div>
+          <div>Metamask is required to interact with this application.</div>
+          <h2>Open Campaigns</h2>
 
           <Link route="/campaigns/new">
             <a>
