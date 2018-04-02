@@ -16,7 +16,10 @@ class RequestNew extends Component {
 
   static async getInitialProps(props) {
     const {address} = props.query;
-    return {address};
+    const campaign = Campaign(address);
+    const title = await campaign.methods.campaignTitle().call();
+
+    return {address,title};
   }
 
   onSubmit = async (event) => {
@@ -45,7 +48,8 @@ class RequestNew extends Component {
       <Link route={`/campaigns/${this.props.address}/requests`}>
         <a>Back</a>
       </Link>
-      <h3>Create a Request</h3>
+      <h3>Create a Payment Request for Campaign: {`${this.props.title}`}</h3>
+      <h5>Only the Campaign Manager may create a Request.</h5>
       <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
 
         <Form.Field>
@@ -65,7 +69,7 @@ class RequestNew extends Component {
         </Form.Field>
 
         <Form.Field>
-          <label>Recipient</label>
+          <label>Recipient Address</label>
           <Input
             value={this.state.recipient}
             onChange={event => this.setState({ recipient : event.target.value })}
