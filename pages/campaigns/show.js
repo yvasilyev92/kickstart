@@ -11,13 +11,17 @@ class CampaignShow extends Component {
     const campaign = Campaign(props.query.address);
     // Anytime we return a function from a contract call that returns multiple values we get a Result object with an array-like object.
     const summary = await campaign.methods.getSummary().call();
+    const title = await campaign.methods.campaignTitle().call();
+    const description = await campaign.methods.campaignDescription().call();
     return {
       address: props.query.address,
       minimumContribution: summary[0],
       balance: summary[1],
       requestsCount: summary[2],
       approversCount: summary[3],
-      manager: summary[4]
+      manager: summary[4],
+      title,
+      description
     };
   }
 
@@ -65,7 +69,9 @@ class CampaignShow extends Component {
   render() {
     return (
       <Layout>
-        <h3>Campaign Details</h3>
+        <h2>{`${this.props.title}`}</h2>
+        <h3>Project Description: {`${this.props.description}`}</h3>
+        <h4>Campaign Details</h4>
         <Grid>
 
           <Grid.Row>
