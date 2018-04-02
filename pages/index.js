@@ -3,32 +3,46 @@ import {Card, Button} from 'semantic-ui-react';
 import factory from '../ethereum/factory.js';
 import Layout from '../components/Layout.js';
 import {Link} from '../routes.js';
+import Campaign from '../ethereum/campaign.js';
 
 class CampaignIndex extends Component {
+
+  state = {
+    arr: [{header:'Loading...', meta: '', description: '', fluid:true}]
+  };
+
   static async getInitialProps() {
     const campaigns = await factory.methods.getDeployedCampaigns().call();
     return { campaigns };
   }
 
   renderCampaigns() {
-    const items = this.props.campaigns.map(address => {
+    const results = this.props.campaigns.map(async (address) => {
+      let campaign = Campaign(address);
       return {
-        header: address,
+        header: await campaign.methods.campaignTitle().call(),
+        meta: address,
         description: (
           <Link route={`/campaigns/${address}`}>
             <a>View Campaign</a>
           </Link>
         ),
-        fluid: true
+        fluid:true
       };
     });
-    return <Card.Group items={items} />;
+    Promise.all(results).then((completed) => {
+      console.log("completed is : ",completed);
+      this.setState({arr:completed});
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 
   render() {
     return (
       <Layout>
         <div>
+        
           <h3>SmartKickStarter is managed by Yevgeniy Vasilyev & deployed on the Rinkeby Network via Contract: 0xdf46CB2afE1F939138aDd2b53Bd36209826123Ad</h3>
           <h3>Open Campaigns</h3>
 
@@ -39,6 +53,9 @@ class CampaignIndex extends Component {
           </Link>
 
           {this.renderCampaigns()}
+
+          <Card.Group items={this.state.arr} />
+
         </div>
       </Layout>
     );
