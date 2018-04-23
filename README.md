@@ -1,8 +1,8 @@
-'SmartKickStarter' aka kickstart, is an Ethereum Blockchain app written in Solidity.js with a React.js/Next.js
+'SmartKickStarter' aka kickstart, is an Ethereum Blockchain dapp that is written in Solidity.js with a React.js/Next.js
 front-end.
 
 Deployed on Heroku: https://floating-waters-95712.herokuapp.com/
-Stack: Node.js, Solidity.js, Mocha, Next.js, ganache-cli, react.js, semantic-ui, truffle, web3.
+Stack: Node.js, Solidity, Mocha, Next.js, ganache-cli, react.js, semantic-ui, truffle, web3.
 
 This application acts as the Blockchain equivalent of the popular crowdfunding platform KickStarter.com.
 
